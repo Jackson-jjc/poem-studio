@@ -1,0 +1,22 @@
+# Only ship the site and the assets used by its current pages.
+*
+!/.gitignore
+!/.nojekyll
+!/*.html
+!/*.css
+!/*.js
+!/assets/
+/assets/*
+!/assets/OFL.txt
+!/assets/display.ttf
+!/assets/mark.svg
+!/assets/about-yichun-daylight.webp
+!/assets/decor-*.webp
+!/assets/portrait-knit-original-face.webp
+!/assets/portrait-plaid-original-face.webp
+!/assets/portrait-cape-side-original.webp
+!/assets/piece-*.webp
+!/assets/look-cutouts/
+!/assets/look-cutouts/*.webp
+!/assets/look-cutouts/flats/
+!/assets/look-cutouts/flats/*.webp
