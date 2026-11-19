@@ -43,10 +43,10 @@ if (renderer) {
     objects.push({ mesh, x, y, size, speed, tilt });
     return mesh;
   }
-  add(new THREE.TorusGeometry(37, 12, 20, 64), blue, .14, .15, .9, .38, .55);
-  add(starGeometry, pink, .73, .18, .87, .27, -.25);
-  add(new THREE.SphereGeometry(23, 32, 24), silver, .35, .78, .9, .4, 0);
-  add(new THREE.TorusGeometry(23, 7, 16, 48), silver, .90, .81, .85, -.32, .6);
+  add(new THREE.TorusGeometry(37, 12, 20, 64), blue, .14, .21, 1.25, .24, .55);
+  add(starGeometry, pink, .25, .20, .43, .27, -.25);
+  add(new THREE.SphereGeometry(23, 32, 24), silver, .20, .13, .42, .3, 0);
+  add(new THREE.TorusGeometry(23, 7, 16, 48), silver, .94, .82, .45, -.22, .6);
   const capsule = new THREE.Group();
   const white = material(0xf7f6ef);
   for (const direction of [1, -1]) {
@@ -60,10 +60,10 @@ if (renderer) {
     capsule.add(half);
   }
   scene.add(capsule);
-  objects.push({mesh:capsule,x:.94,y:.15,size:1.1,speed:.32,tilt:.8});
-  add(new THREE.SphereGeometry(13, 24, 16), pink, .035, .60, .8, .5, 0);
-  add(starGeometry, blue, .61, .90, .38, -.36, .3);
-  const satellite = add(new THREE.SphereGeometry(8, 20, 14), pink, .14, .15, 1, .65, 0);
+  objects.push({mesh:capsule,x:.88,y:.77,size:1.35,speed:.22,tilt:.8});
+  add(new THREE.SphereGeometry(13, 24, 16), pink, .075, .21, .45, .4, 0);
+  add(starGeometry, blue, .88, .91, .19, -.26, .3);
+  const satellite = add(new THREE.SphereGeometry(8, 20, 14), pink, .14, .21, 1, .65, 0);
   const molecule = new THREE.Group();
   const points = [new THREE.Vector3(-26,0,0), new THREE.Vector3(0,19,5), new THREE.Vector3(27,3,-4), new THREE.Vector3(7,-22,10)];
   points.forEach((point, index) => {
@@ -78,14 +78,14 @@ if (renderer) {
     molecule.add(bond);
   });
   scene.add(molecule);
-  objects.push({mesh:molecule,x:.055,y:.88,size:1,speed:.3,tilt:.2});
+  objects.push({mesh:molecule,x:.075,y:.33,size:.58,speed:.2,tilt:.2});
   let width = 1000, height = 500, scale = 1, elapsed = 0, last = null, running = false, inView = true, frame;
   function render(time) {
     objects.forEach((item, index) => {
-      item.mesh.visible = width > 600 || ![3, 6, 8].includes(index);
+      item.mesh.visible = width > 600 || ![2, 3, 5, 6, 8].includes(index);
       const phase = time * item.speed + index;
       item.mesh.scale.setScalar(item.size * scale);
-      item.mesh.position.set((item.x - .5) * width + Math.cos(phase) * 5 * scale, (.5 - item.y) * height + Math.sin(phase) * 11 * scale, 0);
+      item.mesh.position.set((item.x - .5) * width + Math.cos(time * .24) * (index < 3 ? 10 : 4) * scale, (.5 - item.y) * height + Math.sin(time * .24) * (index < 3 ? 12 : 6) * scale, 0);
       item.mesh.rotation.x = item.tilt + Math.sin(phase * .7) * .18;
       item.mesh.rotation.y = [1, 6].includes(index) ? .3 + Math.sin(phase) * .65 : phase * .65;
       item.mesh.rotation.z = -.25 + Math.sin(phase * .6) * .12;
