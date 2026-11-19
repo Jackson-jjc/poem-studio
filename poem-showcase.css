@@ -40,3 +40,4 @@
 @keyframes note-sequence{0%,100%{opacity:1;transform:translateY(0)}30%,50%{opacity:0;transform:translateY(5px)}}
 @media(max-width:600px){.project-slide[data-project=luma]{grid-template-columns:1fr;grid-template-rows:44% 56%}.project-slide[data-project=luma] .slide-image{padding:8px}.project-slide[data-project=luma] .image-label{font-size:8px;bottom:8px;right:8px}}
 @media(prefers-reduced-motion:reduce){.project-showcase *{animation:none!important;transition:none!important}}
+.showcase-stage .hero-3d{animation:none}.is-initializing .hero-3d{animation:sculpture-first 1.55s both}.is-switching .hero-3d{animation:sculpture-sequence 1.55s both}

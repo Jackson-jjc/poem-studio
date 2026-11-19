@@ -9,6 +9,8 @@ export function mountShowcase(projects) {
   };
   stage.innerHTML = `<div class="showcase-stage"><div class="hero-3d" aria-hidden="true"></div><div class="slide-deck">${projects.map((p,i)=>`<article class="project-slide" data-project="${p.id}" aria-hidden="${i!==0}" ${i?'inert':''}><div class="slide-copy"><span class="eyebrow">${themes[p.id].tag}</span><h2>${themes[p.id].label.replace('，','，<br>')}</h2><p>${p.title}</p><a class="slide-link" href="project.html?id=${p.id}">探索 ${p.name}</a><span class="slide-concept">概念设计 / CONCEPT</span></div><a class="slide-image" href="project.html?id=${p.id}" tabindex="${i?-1:0}"><img src="${p.image}" alt="${p.name} ${p.type}设计概念" ${i?'':'fetchpriority="high"'}><span class="image-label">${p.name}</span><span class="pixel-seam" aria-hidden="true">${Array.from({length:18},(_,n)=>`<i style="--n:${n};--size:${[12,24,36,18,48,14][n%6]}px"></i>`).join('')}</span></a></article>`).join('')}</div></div><div class="showcase-footer"><p class="showcase-note">${themes.luma.note}</p><div class="showcase-controls" aria-label="选择精选作品">${projects.map((p,i)=>`<button type="button" data-slide="${i}" aria-label="展示 ${p.name}" aria-pressed="${i===0}"><span>${p.type.split(' / ')[0]}</span><small>${p.name}</small><i></i></button>`).join('')}</div></div>`;
   const slides = [...stage.querySelectorAll('.project-slide')];
+  stage.classList.add('is-initializing');
+  setTimeout(()=>stage.classList.remove('is-initializing'),1550);
   const controls = [...stage.querySelectorAll('[data-slide]')];
   let active = 0, timer, busy = false, pending = null, visible = true, focused = false, hovering = false;
   stage.dataset.project = projects[0].id;
@@ -24,6 +26,7 @@ export function mountShowcase(projects) {
     if (busy) { pending=index; return; }
     if (index===active) return;
     busy = true;
+    stage.classList.remove('is-initializing');
     stage.classList.remove('is-playing');
     stage.classList.add('is-switching');
     const old = active;
