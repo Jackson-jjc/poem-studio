@@ -5,7 +5,7 @@ const projects = [
   { id: 'pulse', name: 'PULSE', category: 'app', type: 'App 设计 / DIGITAL PRODUCT', image: 'assets/poem-app.webp', title: '把喜欢的声音，带进日常。', description: '围绕音乐发现与收藏设计的移动端概念。用有温度的色彩和清晰的操作路径，连接探索、播放与保存。', scope: '用户流程、App UI、组件库、动态反馈', approach: '围绕发现、试听、收藏三个核心动作组织信息，让每一次点击都能自然进入下一步。', deliverable: '核心用户流程、界面原型和产品设计系统。' }
 ];
 const page = document.body.dataset.page;
-if (page === 'home') import('./hero-showcase.js?v=4').then(module => module.mountShowcase(projects)).then(() => import('./poem-motion.js?v=4')).catch(() => document.querySelector('.hero-3d')?.classList.add('motion-fallback'));
+if (page === 'home') import('./hero-showcase.js?v=5').then(module => module.mountShowcase(projects)).then(() => import('./poem-motion.js?v=5')).catch(() => document.querySelector('.hero-3d')?.classList.add('motion-fallback'));
 const nav = [['index.html','首页','home'],['works.html','作品','works'],['services.html','服务','services'],['about.html','关于','about']];
 document.querySelector('.site-header').innerHTML = `<a class="logo" href="index.html" aria-label="Poem Studio 首页"><span class="logo-symbol" aria-hidden="true">✳</span><span>POEM<br>STUDIO</span></a><nav aria-label="主导航">${nav.map(([url,label,key])=>`<a href="${url}" ${page===key?'aria-current="page"':''}>${label}</a>`).join('')}</nav><a class="header-link" href="contact.html">聊聊你的项目</a>`;
 document.querySelector('.site-footer').innerHTML = '<p>POEM STUDIO · 品牌 / 网页 / APP</p><a href="contact.html">开始一个项目</a><p>© 2026 POEM STUDIO</p>';

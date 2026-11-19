@@ -93,7 +93,7 @@ if (renderer) {
   stage.dataset.decorTheme=theme;
   stage.addEventListener('showcasechange',event=>{
     const next=event.detail.id;
-    setTimeout(()=>{theme=next;stage.dataset.decorTheme=theme;},reduced.matches?0:400);
+    setTimeout(()=>{theme=next;stage.dataset.decorTheme=theme;render(elapsed);},reduced.matches?0:600);
   });
   let width = 1000, height = 500, scale = 1, elapsed = 0, last = null, running = false, inView = true, frame;
   function render(time) {
@@ -105,7 +105,9 @@ if (renderer) {
       const phase = time * item.speed + index;
       const size=rank===0?1.2:rank===1?.64:.25;
       item.mesh.scale.setScalar(size * scale);
-      const positions=width>600?[[.88,.15],[.48,.86],[.94,.29],[.80,.08]]:[[.86,.53],[.17,.86],[.94,.68],[.78,.55]];
+      const positions=theme==='luma'
+        ? (width>600?[[.965,.18],[.38,.86],[.95,.35]]:[[.88,.49],[.12,.94],[.94,.88]])
+        : (width>600?[[.88,.15],[.48,.86],[.94,.29],[.80,.08]]:[[.86,.53],[.17,.86],[.94,.68],[.78,.55]]);
       const [x,y]=positions[rank];
       item.mesh.position.set((x-.5)*width+Math.cos(time*.3+rank)*8*scale,(.5-y)*height+Math.sin(time*.3+rank)*10*scale,0);
       item.mesh.rotation.x = item.tilt + Math.sin(phase * .7) * .18;

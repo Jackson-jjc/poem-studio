@@ -12,3 +12,31 @@
 @media(max-width:600px){.slide-copy h2{font-size:10cqw;max-width:90%;line-height:1.1;margin:19px 0 14px}.slide-copy .eyebrow{font-size:11px}.statement h2{font-size:8.6cqw;line-height:1.25}.manifesto-art strong{font-size:13cqw}.digital-head h2{font-size:13cqw}.feature-heading h2{font-size:10cqw}.page-title{font-size:11cqw}.service-shape small{font-size:11px}}
 
 .showcase-controls button span{font-size:13px;display:block}.showcase-controls button small{display:block;font:10px var(--mono);margin-top:4px}.skip{top:0;left:10px;transform:translateY(-200%);opacity:0}.skip:focus{transform:none;opacity:1}@media(max-width:600px){.showcase-controls button span{font-size:11px}.showcase-controls button small{font-size:8px}.showcase-controls button:first-child span{max-width:none}}
+
+/* A composed sequence: image, heading, supporting copy, then sculpture. */
+.project-slide.slide-out{animation:none;background:transparent}
+.project-slide.slide-out .slide-copy{animation:copy-leave .28s ease both}
+.project-slide.slide-out .slide-image{animation:image-leave .62s cubic-bezier(.4,0,.2,1) both}
+.project-slide[aria-hidden=false] .slide-image{animation:image-enter 1.1s cubic-bezier(.22,1,.36,1) both}
+.project-slide[aria-hidden=false] .slide-copy .eyebrow{animation:copy-enter .55s .22s both}
+.project-slide[aria-hidden=false] .slide-copy h2{animation:copy-enter .72s .34s both}
+.project-slide[aria-hidden=false] .slide-copy p{animation:copy-enter .65s .51s both}
+.project-slide[aria-hidden=false] .slide-link,.project-slide[aria-hidden=false] .slide-concept{animation:copy-enter .55s .67s both}
+.project-slide[aria-hidden=false] .image-label{animation:copy-enter .5s .74s both}
+.showcase-stage .hero-3d{animation:sculpture-first 1.55s both;transition:none}
+.is-switching .hero-3d{animation:sculpture-sequence 1.55s both}
+.is-switching .showcase-note{animation:note-sequence 1.1s both}
+.project-slide[data-project=luma]{grid-template-columns:35% 65%}
+.project-slide[data-project=luma] .slide-image{background:#e9e8e5;padding:12px}
+.project-slide[data-project=luma] .slide-image>img{object-fit:contain;object-position:center}
+.project-slide[data-project=luma] .pixel-seam{display:none}
+.project-slide[data-project=luma] .image-label{bottom:12px;right:12px;font-size:10px;padding:4px 6px}
+@keyframes image-enter{from{opacity:0;transform:translateX(42px);clip-path:inset(0 0 0 6%)}to{opacity:1;transform:translateX(0);clip-path:inset(0)}}
+@keyframes image-leave{to{opacity:0;transform:translateX(-24px)}}
+@keyframes copy-enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes copy-leave{to{opacity:0;transform:translateY(-8px)}}
+@keyframes sculpture-first{0%,52%{opacity:0;transform:translateY(18px) scale(.96)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes sculpture-sequence{0%{opacity:1;transform:translateY(0) scale(1)}18%,54%{opacity:0;transform:translateY(18px) scale(.96)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes note-sequence{0%,100%{opacity:1;transform:translateY(0)}30%,50%{opacity:0;transform:translateY(5px)}}
+@media(max-width:600px){.project-slide[data-project=luma]{grid-template-columns:1fr;grid-template-rows:44% 56%}.project-slide[data-project=luma] .slide-image{padding:8px}.project-slide[data-project=luma] .image-label{font-size:8px;bottom:8px;right:8px}}
+@media(prefers-reduced-motion:reduce){.project-showcase *{animation:none!important;transition:none!important}}
