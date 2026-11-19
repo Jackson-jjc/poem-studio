@@ -79,19 +79,41 @@ if (renderer) {
   });
   scene.add(molecule);
   objects.push({mesh:molecule,x:.075,y:.33,size:.58,speed:.2,tilt:.2});
+  add(new THREE.BoxGeometry(58,58,58), blue, .88,.16,1,.2,.4);
+  const headphones = new THREE.Group();
+  const band = new THREE.Mesh(new THREE.TorusGeometry(34,7,16,50,Math.PI), silver);
+  headphones.add(band);
+  for (const direction of [-1,1]) {
+    const ear = new THREE.Mesh(new THREE.CapsuleGeometry(12,18,6,16),pink);
+    ear.position.set(direction*33,-7,0);headphones.add(ear);
+  }
+  scene.add(headphones);objects.push({mesh:headphones,x:.88,y:.16,size:1.2,speed:.2,tilt:.25});
+  let theme = stage.dataset.project || 'luma';
+  const themeObjects={luma:[4,8,2],forme:[0,7,5,2],offgrid:[9,3,2],pulse:[10,1,5]};
+  stage.dataset.decorTheme=theme;
+  stage.addEventListener('showcasechange',event=>{
+    const next=event.detail.id;
+    setTimeout(()=>{theme=next;stage.dataset.decorTheme=theme;},reduced.matches?0:400);
+  });
   let width = 1000, height = 500, scale = 1, elapsed = 0, last = null, running = false, inView = true, frame;
   function render(time) {
     objects.forEach((item, index) => {
-      item.mesh.visible = width > 600 || ![2, 3, 5, 6, 8].includes(index);
+      const group = themeObjects[theme];
+      const rank=group.indexOf(index);
+      item.mesh.visible=rank>=0 && (width>600 || rank<3);
+      if (!item.mesh.visible) return;
       const phase = time * item.speed + index;
-      item.mesh.scale.setScalar(item.size * scale);
-      item.mesh.position.set((item.x - .5) * width + Math.cos(time * .24) * (index < 3 ? 10 : 4) * scale, (.5 - item.y) * height + Math.sin(time * .24) * (index < 3 ? 12 : 6) * scale, 0);
+      const size=rank===0?1.2:rank===1?.64:.25;
+      item.mesh.scale.setScalar(size * scale);
+      const positions=width>600?[[.88,.15],[.48,.86],[.94,.29],[.80,.08]]:[[.86,.53],[.17,.86],[.94,.68],[.78,.55]];
+      const [x,y]=positions[rank];
+      item.mesh.position.set((x-.5)*width+Math.cos(time*.3+rank)*8*scale,(.5-y)*height+Math.sin(time*.3+rank)*10*scale,0);
       item.mesh.rotation.x = item.tilt + Math.sin(phase * .7) * .18;
       item.mesh.rotation.y = [1, 6].includes(index) ? .3 + Math.sin(phase) * .65 : phase * .65;
       item.mesh.rotation.z = -.25 + Math.sin(phase * .6) * .12;
     });
-    satellite.position.x += Math.cos(time * .6) * 63 * scale;
-    satellite.position.y += Math.sin(time * .6) * 23 * scale;
+    satellite.position.x += Math.cos(time * .6) * 28 * scale;
+    satellite.position.y += Math.sin(time * .6) * 15 * scale;
     satellite.position.z = Math.sin(time * .6) * 50 * scale;
     renderer.render(scene, camera);
   }
