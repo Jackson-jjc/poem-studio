@@ -2,6 +2,10 @@
 *
 !/.gitignore
 !/.nojekyll
+!/.agents/
+!/.agents/skills/
+!/.agents/skills/poem-studio-editorial/
+!/.agents/skills/poem-studio-editorial/SKILL.md
 !/*.html
 !/*.css
 !/*.js
@@ -11,6 +15,11 @@
 !/assets/display.ttf
 !/assets/mark.svg
 !/assets/poem-*.webp
+!/assets/portfolio/
+!/assets/portfolio/*.webp
+!/assets/portfolio/shenwan-motion.gif
+!/assets/cover/
+!/assets/cover/*.webp
 !/assets/three.module.min.js
 !/assets/three-LICENSE.txt
 !/assets/about-yichun-daylight.webp

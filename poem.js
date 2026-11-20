@@ -5,22 +5,66 @@ const projects = [
   { id: 'pulse', name: 'PULSE', category: 'app', type: 'App 设计 / DIGITAL PRODUCT', image: 'assets/poem-app.webp', title: '把喜欢的声音，带进日常。', description: '围绕音乐发现与收藏设计的移动端概念。用有温度的色彩和清晰的操作路径，连接探索、播放与保存。', scope: '用户流程、App UI、组件库、动态反馈', approach: '围绕发现、试听、收藏三个核心动作组织信息，让每一次点击都能自然进入下一步。', deliverable: '核心用户流程、界面原型和产品设计系统。' }
 ];
 const page = document.body.dataset.page;
-if (page === 'home') import('./hero-showcase.js?v=5').then(module => module.mountShowcase(projects)).then(() => import('./poem-motion.js?v=5')).catch(() => document.querySelector('.hero-3d')?.classList.add('motion-fallback'));
+if (page === 'home') {
+  import('./hero-showcase.js?v=12').then(({mountShowcase}) => mountShowcase());
+}
 const nav = [['index.html','首页','home'],['works.html','作品','works'],['services.html','服务','services'],['about.html','关于','about']];
 document.querySelector('.site-header').innerHTML = `<a class="logo" href="index.html" aria-label="Poem Studio 首页"><span class="logo-symbol" aria-hidden="true">✳</span><span>POEM<br>STUDIO</span></a><nav aria-label="主导航">${nav.map(([url,label,key])=>`<a href="${url}" ${page===key?'aria-current="page"':''}>${label}</a>`).join('')}</nav><a class="header-link" href="contact.html">聊聊你的项目</a>`;
 document.querySelector('.site-footer').innerHTML = '<p>POEM STUDIO · 品牌 / 网页 / APP</p><a href="contact.html">开始一个项目</a><p>© 2026 POEM STUDIO</p>';
-function projectCard(project) {
-  return `<a class="work-card" data-category="${project.category}" href="project.html?id=${project.id}"><div class="work-visual"><img src="${project.image}" alt="${project.name} ${project.type}概念设计展示" width="1536" height="1024" loading="lazy"><span class="concept">CONCEPT / 概念练习</span></div><h3>${project.name}</h3><div class="work-meta"><span>${project.type}</span><span>2026</span></div><p>${project.title}</p></a>`;
+function projectCard(work) {
+  const image = work.cover || work.image;
+  return `<a class="work-card real-card" href="project.html?id=${work.id}"><div class="work-visual edit-${work.id}"><img src="${portfolioImage(image)}" alt="" loading="lazy"></div><div class="work-meta">${work.type}</div><h3>${work.name}</h3><p>${work.title}</p></a>`;
 }
-document.querySelectorAll('.work-grid').forEach(grid=>{grid.innerHTML=projects.map(projectCard).join('')});
-document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{
-  document.querySelectorAll('[data-filter]').forEach(other=>other.setAttribute('aria-pressed',String(other===button)));
-  document.querySelectorAll('.work-card').forEach(card=>{card.hidden=button.dataset.filter!=='all' && card.dataset.category!==button.dataset.filter});
-}));
+const directory = document.querySelector('.portfolio-directory');
+if (directory) {
+  const previews = {
+    brand: ['diaozhuo', portfolioImage('diaozhuo-cover'), '开平碉楼造型的盆器与纸盒'],
+    digital: ['meyou', portfolioImage('site-meyou'), 'MeYou 跨境医美信息核验网站首页'],
+    objects: ['graduate', portfolioImage('graduate-magnets'), '五款毕业冰箱贴与南安普顿大学校徽背卡'],
+    research: ['drawnwork', 'assets/cover/flower.webp', '潮汕抽纱的分形花样']
+  };
+  directory.innerHTML = `<figure class="index-preview"><a class="index-plate" href=""><img alt=""></a><figcaption><strong></strong><a class="index-case-link" href="">查看案例 ↗</a></figcaption></figure>
+    <div class="index-rows">${portfolioSections.map(section => {
+      const count = studioWorks.filter(work => section.categories.includes(work.category)).length;
+      return `<div class="index-row"><button type="button" data-section="${section.id}" aria-label="预览${section.name}" aria-pressed="false"><strong>${section.name}</strong><small lang="en">${section.en}</small></button><a href="works.html?group=${section.id}" aria-label="浏览${section.name}，共 ${count} 个项目">${count} 项 <span aria-hidden="true">↗</span></a></div>`;
+    }).join('')}</div>`;
+  const figure = directory.querySelector('figure');
+  const img = figure.querySelector('img');
+  const buttons = directory.querySelectorAll('button');
+  function preview(section) {
+    const [id, src, alt] = previews[section];
+    figure.dataset.section = section;
+    img.src = src;
+    img.alt = alt;
+    figure.querySelector('strong').textContent = studioWorks.find(work => work.id === id).name;
+    figure.querySelectorAll('a').forEach(a => a.href = 'project.html?id='+id);
+    buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.section === section)));
+  }
+  buttons.forEach(button => button.addEventListener('click', () => preview(button.dataset.section)));
+  preview(portfolioSections[0].id);
+}
+const catalogue = document.querySelector('.catalogue');
+if (catalogue) {
+  const key = new URLSearchParams(location.search).get('group');
+  const selected = portfolioSections.some(s => s.id === key) ? key : 'all';
+  document.querySelector('.filters').innerHTML = [{id:'all',name:'全部作品'}, ...portfolioSections].map(s =>
+    `<a href="works.html${s.id === 'all' ? '' : '?group='+s.id}" ${s.id === selected ? 'aria-current="page"' : ''}>${s.name}</a>`).join('');
+  catalogue.innerHTML = portfolioSections.filter(s => selected === 'all' || selected === s.id).map(section => {
+    const projects = studioWorks.filter(work => section.categories.includes(work.category));
+    return `<section class="catalogue-section"><header><h2>${section.name}</h2><small lang="en">${section.en}</small></header><div class="work-grid">${projects.map(projectCard).join('')}</div></section>`;
+  }).join('');
+}
+document.querySelectorAll('.open-research').forEach(section => {
+  section.innerHTML = `<header><small lang="en">RESEARCH NOTES</small><h2 id="research-title">研究手记</h2></header><div class="research-list">${researchNotes.map(note => `<article><small class="note-type">${note.type}</small><h3>${note.name}</h3><p class="note-credit">${note.credit}</p><p>${note.description}</p><div class="note-links">${note.links.map(([label,url]) => `<a href="${url}">${label}<span aria-hidden="true"> ↗</span></a>`).join('')}</div></article>`).join('')}</div>`;
+});
 if (document.querySelector('#case-content')) {
   const project = projects.find(item=>item.id===new URLSearchParams(location.search).get('id'));
   const content = document.querySelector('#case-content');
-  if (project) {
+  const work = studioWorks.find(item => item.id === new URLSearchParams(location.search).get('id'));
+  if (work) {
+    document.title = work.name + ' · Poem Studio';
+    renderProjectStory(content, work);
+  } else if (project) {
     document.title = project.name + ' · Poem Studio';
     content.innerHTML = `<div class="case-hero"><img src="${project.image}" alt="${project.name} 概念设计全图"><div><p class="work-meta">${project.type} · CONCEPT</p><h1>${project.name}</h1><h2>${project.title}</h2><p>${project.description}</p><dl><dt>设计范围</dt><dd>${project.scope}</dd><dt>设计思路</dt><dd>${project.approach}</dd><dt>呈现内容</dt><dd>${project.deliverable}</dd></dl><p class="help">这是用于呈现工作室视觉方向的概念练习。</p><a class="button" href="contact.html?service=${project.category}">讨论类似项目</a></div></div>`;
 if (project.id === 'luma') content.insertAdjacentHTML('beforeend', `<section class="luma-system"><div class="luma-identity"><span class="eyebrow">THE VISUAL LANGUAGE</span><strong>LUMA<br>HEALTH<span class="luma-dot"></span></strong><p>钴蓝、圆弧与清晰的网格，连接品牌与每个触点。</p><div class="palette"><i></i><i></i><i></i></div></div><div class="luma-notes"><h2>一套规则，<br>两种阅读距离。</h2><p>包装：先识别品牌，再读取产品类别与信息。</p><p>网页：先理解品牌方向，再进入产品与内容。</p><p>相同的字体、色彩与圆弧图形，让线下与线上彼此呼应。</p></div></section><div class="case-gallery"><figure><img src="assets/poem-health.webp" alt="LUMA 包装体系细节"><figcaption>PACKAGING / 包装与材质</figcaption></figure><figure><img src="assets/poem-health.webp" alt="LUMA 官网视觉细节"><figcaption>WEB EXPERIENCE / 官网视觉</figcaption></figure></div>`);  } else content.innerHTML = '<div class="empty"><h1>这个项目还未收录。</h1><a class="text-link" href="works.html">浏览全部项目</a></div>';

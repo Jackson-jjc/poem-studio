@@ -1,67 +1,114 @@
-export function mountShowcase(projects) {
-  const stage = document.querySelector('.project-showcase');
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const themes = {
-    luma: { label: '让关怀，清晰可见。', note: '包装、品牌与官网，使用同一种视觉语言。', tag: '医疗健康 / 品牌与官网' },
-    forme: { label: '让品牌，被记住。', note: '从包装材质到色彩，建立可被记住的品牌。', tag: '品牌视觉 / 包装设计' },
-    offgrid: { label: '给好内容，一个舞台。', note: '把编辑的节奏，转化为清楚的浏览路径。', tag: '网页设计 / 内容体验' },
-    pulse: { label: '让体验，自然发生。', note: '用有温度的界面，让发现与收藏自然发生。', tag: '应用界面 / 数字体验' }
-  };
-  stage.innerHTML = `<div class="showcase-stage"><div class="hero-3d" aria-hidden="true"></div><div class="slide-deck">${projects.map((p,i)=>`<article class="project-slide" data-project="${p.id}" aria-hidden="${i!==0}" ${i?'inert':''}><div class="slide-copy"><span class="eyebrow">${themes[p.id].tag}</span><h2>${themes[p.id].label.replace('，','，<br>')}</h2><p>${p.title}</p><a class="slide-link" href="project.html?id=${p.id}">探索 ${p.name}</a><span class="slide-concept">概念设计 / CONCEPT</span></div><a class="slide-image" href="project.html?id=${p.id}" tabindex="${i?-1:0}"><img src="${p.image}" alt="${p.name} ${p.type}设计概念" ${i?'':'fetchpriority="high"'}><span class="image-label">${p.name}</span><span class="pixel-seam" aria-hidden="true">${Array.from({length:18},(_,n)=>`<i style="--n:${n};--size:${[12,24,36,18,48,14][n%6]}px"></i>`).join('')}</span></a></article>`).join('')}</div></div><div class="showcase-footer"><p class="showcase-note">${themes.luma.note}</p><div class="showcase-controls" aria-label="选择精选作品">${projects.map((p,i)=>`<button type="button" data-slide="${i}" aria-label="展示 ${p.name}" aria-pressed="${i===0}"><span>${p.type.split(' / ')[0]}</span><small>${p.name}</small><i></i></button>`).join('')}</div></div>`;
-  const slides = [...stage.querySelectorAll('.project-slide')];
-  stage.classList.add('is-initializing');
-  setTimeout(()=>stage.classList.remove('is-initializing'),1550);
-  const controls = [...stage.querySelectorAll('[data-slide]')];
-  let active = 0, timer, busy = false, pending = null, visible = true, focused = false, hovering = false;
-  stage.dataset.project = projects[0].id;
-  stage.dataset.active = '0';
+export function mountShowcase() {
+  const poster = document.querySelector('.work-poster');
+  if (!poster) return;
+  const field = poster.querySelector('.object-field');
+  const frame = field.querySelector('.object-focus');
+  const caption = poster.querySelector('.caption-entry');
+  const photo = poster.querySelector('.caption-photo');
+  const link = poster.querySelector('.caption-link');
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const controls = poster.querySelector('.poster-controls');
+  const items = [...field.querySelectorAll('.specimen')].map(anchor => {
+    const control = document.createElement('button');
+    control.type = 'button';
+    control.className = anchor.className;
+    const title = anchor.getAttribute('aria-label');
+    control.setAttribute('aria-label', '查看' + title + '的说明');
+    const mount = document.createElement('span');
+    mount.className = 'piece-mount';
+    mount.append(...anchor.childNodes);
+    const mosaic = new Image();
+    mosaic.className = 'mosaic-print';
+    mosaic.alt = '';
+    mosaic.onload = () => control.classList.add('has-mosaic');
+    mosaic.src = 'assets/cover/mosaic-' + new URL(anchor.href).searchParams.get('id') + '.webp';
+    mount.append(mosaic);
+    control.append(mount);
+    anchor.replaceWith(control);
+    return {control, mount, title, url:anchor.href, ...anchor.dataset};
+  });
+  let current = 0;
+  let timer;
+  let screenTimer;
+  const screenNames = ['图案目录','绣样详情','绣线配色','针法分类'];
+  const focusDetail = frame.querySelector('.focus-detail');
+  function showScreen(step) {
+    const phone = items[current].control;
+    phone.dataset.screen = step;
+    focusDetail.textContent = screenNames[step];
+    if (!motion.matches && step < screenNames.length-1) {
+      screenTimer = setTimeout(() => showScreen(step+1),1700);
+    }
+  }
+  let visible = true;
+  function placeFrame(previous) {
+    const {mount} = items[current];
+    mount.append(frame);
+    frame.getAnimations().forEach(animation => animation.cancel());
+    const fieldRect = field.getBoundingClientRect();
+    const base = mount.getBoundingClientRect();
+    const art = mount.querySelector('.object-art').getBoundingClientRect();
+    const pad = Math.max(3, Math.min(10, fieldRect.width * .007));
+    const bounds = {left:art.left-base.left-pad+'px',top:art.top-base.top-pad+'px',
+      width:art.width+2*pad+'px',height:art.height+2*pad+'px'};
+    Object.assign(frame.style,bounds);
+    if (previous && !motion.matches) {
+      frame.animate([{left:previous.left-base.left+'px', top:previous.top-base.top+'px',
+        width:previous.width+'px',height:previous.height+'px'},bounds],
+        {duration:550,easing:'cubic-bezier(.2,.72,.2,1)'});
+    }
+  }
   function schedule() {
     clearTimeout(timer);
-    stage.classList.remove('is-playing');
-    if (!visible || document.hidden || focused || hovering || reduced.matches) return;
-    requestAnimationFrame(()=>stage.classList.add('is-playing'));
-    timer = setTimeout(()=>select((active+1)%projects.length),6200);
+    if (visible && !document.hidden && !motion.matches && !poster.querySelector(':focus-visible')) {
+      timer = setTimeout(() => select(current+1), items[current].control.classList.contains('phone-art') ? 7100 : 4900);
+    }
   }
   function select(index) {
-    if (busy) { pending=index; return; }
-    if (index===active) return;
-    busy = true;
-    stage.classList.remove('is-initializing');
-    stage.classList.remove('is-playing');
-    stage.classList.add('is-switching');
-    const old = active;
-    active = index;
-    const p = projects[active];
-    slides[old].classList.add('slide-out');
-    slides[old].setAttribute('aria-hidden','true'); slides[old].inert=true;
-    slides[old].querySelector('.slide-image').tabIndex=-1;
-    slides[active].inert=false; slides[active].setAttribute('aria-hidden','false');
-    slides[active].querySelector('.slide-image').tabIndex=0;
-    stage.dataset.project=p.id; stage.dataset.active=String(active);
-    controls.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===active)));
-    setTimeout(()=>{stage.querySelector('.showcase-note').textContent=themes[p.id].note;},reduced.matches?0:480);
-    stage.dispatchEvent(new CustomEvent('showcasechange',{detail:{id:p.id,index:active}}));
-    setTimeout(()=>{
-      slides[old].classList.remove('slide-out');stage.classList.remove('is-switching');busy=false;
-      const requested=pending;pending=null;
-      if(requested!==null && requested!==active)select(requested);else schedule();
-    },reduced.matches?0:1550);
+    clearTimeout(screenTimer);
+    const previous = frame.hidden ? null : frame.getBoundingClientRect();
+    current = (index+items.length)%items.length;
+    const item = items[current];
+    items.forEach(({control},i) => {
+      control.classList.toggle('is-current',i===current);
+      control.setAttribute('aria-pressed', String(i===current));
+      delete control.dataset.screen;
+    });
+    const number = String(current+1).padStart(2,'0');
+    poster.querySelector('.caption-count b').textContent = number;
+    frame.querySelector('.focus-tag').textContent = number+' / '+(item.short || item.title);
+    focusDetail.textContent = item.detail;
+    if (item.control.classList.contains('phone-art')) showScreen(0);
+    caption.querySelector('h2').textContent = item.title;
+    caption.querySelector('p span').textContent = item.caption;
+    photo.src = portfolioImage(item.photo);
+    photo.alt = item.alt;
+    link.href = item.url;
+    link.setAttribute('aria-label','查看'+item.title+'项目');
+    placeFrame(previous);
+    caption.classList.remove('is-entering');
+    void caption.offsetWidth;
+    if (poster.classList.contains('is-ready')) caption.classList.add('is-entering');
+    schedule();
   }
-  controls.forEach((button,i)=>button.addEventListener('click',()=>select(i)));
-  stage.addEventListener('keydown',event=>{
-    if (event.key!=='ArrowRight'&&event.key!=='ArrowLeft') return;
-    event.preventDefault(); const index=(active+(event.key==='ArrowRight'?1:-1)+projects.length)%projects.length;
-    select(index); controls[index].focus();
+  items.forEach(({control},i) => control.addEventListener('click',() => select(i)));
+  const [previous,next] = controls.querySelectorAll('button');
+  previous.addEventListener('click',() => select(current-1));
+  next.addEventListener('click',() => select(current+1));
+  field.addEventListener('keydown',event => {
+    if (!['ArrowLeft','ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    select(current + (event.key==='ArrowRight' ? 1 : -1));
+    items[current].control.focus();
   });
-  stage.addEventListener('focusin',()=>{focused=true;schedule();});
-  stage.addEventListener('focusout',()=>{focused=stage.contains(document.activeElement);setTimeout(()=>{focused=stage.contains(document.activeElement);schedule();},0);});
-  stage.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse'){hovering=true;schedule();}});
-  stage.addEventListener('pointerleave',()=>{hovering=false;schedule();});
-  let touchStart;
-  stage.addEventListener('touchstart',event=>{touchStart=event.touches[0].clientX;},{passive:true});
-  stage.addEventListener('touchend',event=>{const dx=event.changedTouches[0].clientX-touchStart;if(Math.abs(dx)>55)select((active+(dx<0?1:-1)+projects.length)%projects.length);},{passive:true});
-  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;schedule();},{threshold:.2}).observe(stage);
+  poster.addEventListener('focusin',schedule);
+  poster.addEventListener('focusout',() => requestAnimationFrame(schedule));
   document.addEventListener('visibilitychange',schedule);
-  reduced.addEventListener('change',schedule);
-  schedule();
+  motion.addEventListener('change',schedule);
+  new IntersectionObserver(([entry]) => {visible=entry.isIntersecting;schedule();}).observe(poster);
+  new ResizeObserver(() => placeFrame()).observe(field);
+  controls.hidden = false;
+  select(Math.max(0,items.findIndex(item => 'opening' in item)));
+  frame.hidden = false;
+  requestAnimationFrame(() => poster.classList.add('is-ready'));
 }
