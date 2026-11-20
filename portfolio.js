@@ -130,7 +130,7 @@ const studioWorks = [
     image: 'drawnwork-ip100-01', cover: 'drawnwork-master-plate', title: '用分形数学设计纹样，再把绣谱做成抽纱实物。',
     description: '从潮汕抽纱中提取花心、边饰和重复单元，用分形规则推演数字绣谱，再把纹样转入实际制作。对照手巾与设计稿，能看到屏幕上的线条如何变成布面上的针脚与镂空。',
     award: '作品获第十届广东省非物质文化遗产创意设计大赛优秀奖、未来设计师·全国高校数字艺术设计大赛广东赛区三等奖，入围 2025 年「岭南文化 IP100 计划」百件作品，入选 2025 中国—东盟（广西）数字设计艺术大展。作品曾在广州图书馆展出。',
-    links: [['分形纹样研究 · ACM','https://doi.org/10.1145/3615522.3615558'],['抽纱纹样生成 · 北大核心期刊','https://szys.cbpt.cnki.net/portal/journal/portal/client/paper/0c65f9ffd7c97957a8e038613c21951d']],
+    links: [['潮汕抽纱数字档案 · ACM JOCCH','https://doi.org/10.1145/3858626'],['抽纱纹样生成 · 北大核心期刊','https://szys.cbpt.cnki.net/portal/journal/portal/client/paper/0c65f9ffd7c97957a8e038613c21951d']],
     lead: ["drawnwork-master-plate", "完整数字绣谱。八瓣花心居中，四角的花叶与四边的边饰重复呼应。"],
     chapters: [
       { title: "用分形推演花样", intro: "先从潮汕抽纱中提取花心、边饰与重复单元，再改变重复次数和排列方向，推演出不同的绣谱。", plates: [
