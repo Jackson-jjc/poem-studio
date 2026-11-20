@@ -10,7 +10,7 @@ function renderProjectStory(content, work) {
     : figure(work.lead[0], work.name, work.lead[1], true);
   const chapters = work.chapters.map((chapter, i) => `
     <section class="story-chapter" id="chapter-${i+1}">
-      <header><span class="chapter-no">/ 0${i+1}</span><h2>${chapter.title}</h2><p>${chapter.intro}</p></header>
+      <header><span class="chapter-no">/ 0${i+1}</span><h2>${chapter.title}</h2>${[chapter.intro].flat().map(paragraph => `<p>${paragraph}</p>`).join('')}${chapter.guide ? `<a class="text-link" href="${chapter.guide[1]}">${chapter.guide[0]}</a>` : ''}</header>
       <div class="plate-grid plates-${chapter.plates.length}">${chapter.plates.map(([src, title, caption]) => figure(src,title,caption)).join('')}</div>
     </section>`).join('');
   const links = (work.links || []).map(([name, url]) => `<a class="text-link" href="${url}">${name}</a>`).join('');

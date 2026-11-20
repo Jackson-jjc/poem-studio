@@ -24,7 +24,7 @@ const studioWorks = [
   },
   {
     id: 'meyou', name: 'MeYou', category: 'health', type: '健康信息 / AI 产品',
-    image: 'meyou', cover: 'index-meyou', label: '从包装查产品',
+    image: 'meyou', cover: 'site-meyou', label: '从包装查产品',
     title: '识读包装、核对跨境医美产品资料的 AI 工具。', note: '入围 2026 谷歌 AI 出海创想赛 Top 30。',
     description: '同一款产品，到了另一个地区，名称和监管分类都可能变。MeYou 从包装照片、产品名称或一段描述入手，把可见信息、候选词条和待核实的问题分开，再引导用户查阅各地区的公开记录。',
     award: '入围 2026 谷歌 AI 出海创想赛 Top 30',
@@ -53,12 +53,18 @@ const studioWorks = [
     links: [['访问 DeTime','https://systems-mechanobiology.github.io/DeTime/'],['访问 EchoTime','https://zipengwu.me/EchoTime/'],['DeTime 仓库','https://github.com/systems-mechanobiology/DeTime'],['EchoTime 仓库','https://github.com/ZipengWu365/EchoTime']], theme: 'offgrid',
     lead: ["index-time", "两款独立科研工具的网页首页。上方是 DeTime，下方是 EchoTime。"],
     chapters: [
-      { title: "DeTime · 看一组数据怎么变", intro: "比如看一年的气温，既想知道天气总体在变暖还是变冷，也想看反复出现的温差。我们把原始记录、长期走势和周期波动上下排列，让读者沿着同一个日期对照。", plates: [
+      { title: "DeTime · 用电量真的涨了吗？", intro: [
+        "假设家里这个月有几天特别费电。把每天的用电量画出来，周末在家的高峰和整个月的变化会叠在一起。DeTime 可以把这条线拆开看：平时的用电量有没有慢慢升高？高峰是不是每隔七天就出现一次？",
+        "想用自己的记录试一遍，可以跟着入门教程，把按日期排好的一列用电量交给 DeTime，并把周期设为七天。我们在网页里把原始曲线和分解结果上下对齐。先看长期走势，再对照每周的起伏，剩下特别突出的那一天，就值得翻回电表记录细看。"
+      ], guide: ["看 DeTime 入门示例", "https://systems-mechanobiology.github.io/DeTime/quickstart/"], plates: [
         ["site-de", "官网首页", "从项目说明进入安装、示例与方法文档。"],
         ["time-de-panel", "分解面板", "原始记录在上方，下方分别显示长期走势、周期波动和剩余变化。"],
         ["site-de-tool", "方法对照表", "用一张表比较不同的分析方法。"]
       ] },
-      { title: "EchoTime · 看两组记录哪里相似", intro: "两条曲线可能某一段一起上升，另一段却各走各的。我们把两条曲线放在同一条时间轴上，方便读者找出这些差异，再打开报告看比较结果。", plates: [
+      { title: "EchoTime · 两座城市是同时热起来的吗？", intro: [
+        "凤凰城和拉斯维加斯的夏天都很热。只看平均气温，很难知道一次热浪中，两地是不是在同几天升温，又是不是一起降温。EchoTime 比较两组随时间变化的记录，可以看出它们在哪些时段走势接近，又从哪里开始分开。",
+        "打开两座城市的气温示例就能试读。先在图上找一座城市的高温峰值，再沿同一日期看另一条线；两地都在升温，升温的幅度也可能不同。我们把曲线预览和报告入口放在一起，读者可以从图上发现的那段差异，继续查看具体的比较结果。"
+      ], guide: ["看两座城市的气温对照", "https://zipengwu.me/EchoTime/blog/heatwave_vs_grid_load.html"], plates: [
         ["site-echo", "官网首页", "文档、教程与 Playground 各有入口。"],
         ["time-echo-panel", "区间对照", "在滚动时间轴上对照两条曲线。"],
         ["site-echo-tool", "在线演示", "从 Playground 进入可运行的比较示例。"]
@@ -151,7 +157,7 @@ const studioWorks = [
     image: 'diaozhuo-ip100-03', cover: 'edit-diaozhuo', title: '把开平碉楼的轮廓，收进一组桌上器物。',
     description: '从碉楼的立面提取线条，缩小尺度，做成桌上陈列。灰绿色贯穿盆器、纸盒和手提袋，把器物与包装联系起来。',
     award: '第十八届中国之星设计奖 · 文创产品类铜奖',
-    lead: ["edit-diaozhuo", "碉琢系列的盆器与包装组合。建筑轮廓贯穿器物与纸盒。"],
+    lead: ["diaozhuo-cover", "碉琢系列的盆器与包装组合。建筑轮廓贯穿器物与纸盒。"],
     chapters: [
       { title: "从碉楼立面取形", intro: "屋顶轮廓、窗洞与层叠的体块，为标志和器物提供了同一套形态线索。", plates: [
         ["diaozhuo-ip100-01", "标志与建筑", "将字标和几类碉楼立面并置观察。"]
