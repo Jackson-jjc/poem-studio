@@ -5,7 +5,8 @@ const studioWorks = [
     title: '融入情感识别的广绣学习 App。', note: '从一幅绣样找到配色、针法与视频示范。',
     description: '悦绣的设计来自广绣课堂，也把情感识别引入学习体验。打开一幅喜欢的绣样，可以先看用色，再找相应针法的视频示范，练习后留下自己的学习记录。',
     award: '2022 RoboCom CAIA 数字创意全国总决赛二等奖',
-    links: [['学校项目报道','https://news.zhku.edu.cn/info/1004/64749.htm']], theme: 'pulse',
+    theme: 'pulse',
+    film: {src: 'yuexiu-walkthrough.mp4', poster: 'yuexiu-walkthrough.webp', title: '悦绣界面演示', caption: '从首页进入课程视频，再查看绣样、配色和个人学习记录。'},
     lead: ["yx-opening", "从绣样进入悦绣。启动页以花形和针线引出学习界面。"],
     chapters: [
       { title: "从哪里开始学", intro: "把一个初学者会遇到的问题放回导航里。首页先给出可选的内容，再带人进入具体的课程。", plates: [
@@ -46,18 +47,18 @@ const studioWorks = [
   {
     id: 'time-tools', name: 'DeTime × EchoTime', category: 'web', type: '科研工具 / WEB UI',
     image: 'edit-time', cover: 'index-time', label: '拆解与比较时间曲线',
-    title: '两款开源科研工具的网页 UI。', note: 'DeTime 拆解变化，EchoTime 比较曲线的相似之处。',
-    description: '研究者来到 DeTime，可以从教程进入时间序列分解；来到 EchoTime，可以通过演示和报告比较两条曲线。两个网站围绕各自的研究任务组织入口、图表和文档。',
+    title: '给研究者看数据的两套网页。', note: 'DeTime 看一组数据怎样变化，EchoTime 比较两组数据哪里相似。',
+    description: '团队为两款开源科研工具设计了网页界面。打开 DeTime，可以看一组数据的长期走势和反复出现的波动。打开 EchoTime，可以把两组记录放在一起，找出变化相似的时段。',
     award: '项目仓库 · DeTime 54 Stars / EchoTime 22 Stars（2026.11.20）',
     links: [['访问 DeTime','https://systems-mechanobiology.github.io/DeTime/'],['访问 EchoTime','https://zipengwu.me/EchoTime/'],['DeTime 仓库','https://github.com/systems-mechanobiology/DeTime'],['EchoTime 仓库','https://github.com/ZipengWu365/EchoTime']], theme: 'offgrid',
     lead: ["index-time", "两款独立科研工具的网页首页。上方是 DeTime，下方是 EchoTime。"],
     chapters: [
-      { title: "DeTime · 把一条序列拆开", intro: "读者先看原始曲线如何分解，再进入方法矩阵比较可用方法。蓝色曲线与对齐的坐标帮助读者在各分量间往返。", plates: [
+      { title: "DeTime · 看一组数据怎么变", intro: "比如看一年的气温，既想知道天气总体在变暖还是变冷，也想看反复出现的温差。我们把原始记录、长期走势和周期波动上下排列，让读者沿着同一个日期对照。", plates: [
         ["site-de", "官网首页", "从项目说明进入安装、示例与方法文档。"],
-        ["time-de-panel", "分解面板", "原始曲线、趋势、季节项与残差上下对齐。"],
-        ["site-de-tool", "方法矩阵", "在同一张表里比较时间序列分解方法。"]
+        ["time-de-panel", "分解面板", "原始记录在上方，下方分别显示长期走势、周期波动和剩余变化。"],
+        ["site-de-tool", "方法对照表", "用一张表比较不同的分析方法。"]
       ] },
-      { title: "EchoTime · 比较两条序列", intro: "首页提出相似性问题。时间轴把比较落在具体区间，读者也可以打开演示页查看示例。", plates: [
+      { title: "EchoTime · 看两组记录哪里相似", intro: "两条曲线可能某一段一起上升，另一段却各走各的。我们把两条曲线放在同一条时间轴上，方便读者找出这些差异，再打开报告看比较结果。", plates: [
         ["site-echo", "官网首页", "文档、教程与 Playground 各有入口。"],
         ["time-echo-panel", "区间对照", "在滚动时间轴上对照两条曲线。"],
         ["site-echo-tool", "在线演示", "从 Playground 进入可运行的比较示例。"]
@@ -73,12 +74,12 @@ const studioWorks = [
     chapters: [
       { title: "五款礼物里的个人细节", intro: "同样是学位袍、证书和花束，发型、肤色与手中物件的搭配，让每一款都有自己的模样。", plates: [
         ["graduate", "正面细节", "证书、学位袍与粉色花束组合在同一块底座上。"],
-        ["gift-cap", "另一款造型", "金色长发与方帽相叠，右手托着毕业证书。"]
+        ["graduate-longhair", "金色长发款", "金色长发垂在学位袍两侧，一旁的证书和粉色花束与方帽款呼应。"]
       ] },
-      { title: "拿在手里的尺度", intro: "从正面陈列转到手持角度，背卡、透明外套和立体部件的关系更容易看清。", plates: [
-        ["graduate-detail", "手持实拍", "侧光照亮包装里的立体部件。"],
-        ["gift-hand", "连同背卡交付", "透明外套保留了背卡上方的学校标识。"],
-        ["gift-wrap", "作为礼物送出", "手持实拍里的毕业造型与花束。"]
+      { title: "把毕业礼物放进花束", intro: "同一份毕业礼物也可以有不同的送法。两张搭配图把人偶放进花束，系列海报则把不同发型放在一起，方便挑选。", plates: [
+        ["graduate-bouquet", "手捧花束", "在教学楼前的搭配图里，方帽款放在粉色与黄色花枝之间。"],
+        ["graduate-ribbon", "缎带花束", "金色长发款配米白色包纸，花束在图书馆前系上一道金色缎带。"],
+        ["graduate-collection", "系列海报", "用四张相片并排对照不同发型与方帽的搭配。"]
       ] },
     ]
   },
@@ -94,11 +95,12 @@ const studioWorks = [
         ["bridge-session", "工作坊节奏", "参与者在 15–30 分钟内经历选名、设计和制作。"]
       ] },
       { title: "把名字从屏幕递到手里", intro: "名字要先变成能打印的模型。现场还需要知道谁在等、哪件做好了、哪里需要重印。", plates: [
-        ["bridge-model", "建模与切片", "Tinkercad 建立字形，Bambu Studio 准备打印。"],
+        ["bridge-amira-shape", "Amira · 字形示意", "按这枚成品的轮廓还原字形、底板和左侧挂孔。"],
+        ["bridge-amira-print", "Amira · 打印成品", "同一枚姓名牌留在打印板上，紫色字母叠在白色底板上。"],
         ["bridge-workshop", "现场服务", "等候、查看进度、取件与返修四个环节。"]
       ] },
       { title: "工作坊走进社区", intro: "活动海报把人带到桌前，现场打印让参与者看到名字一点点成形。三次路演累计超过 80 人次。", plates: [
-        ["bridge-field", "南安普顿现场", "路演工作台与参与者拿到的姓名牌。"],
+        ["bridge-market-table", "南安普顿工作台", "打印机、线材和样品摆在同一张桌上。"],
         ["bridge-posters", "招募与传播", "三张工作坊海报，用各自的场景介绍同一项活动。"],
         ["bridge-names", "最终成品", "不同语言背景的名字，成为可以随身携带的物件。"]
       ] },
@@ -112,12 +114,11 @@ const studioWorks = [
     links: [['打开机械臂项目网页 ↗','https://de5920c1555343ac93fa943a5c9909b1.prod.enter.pro/']],
     lead: ["arm-prototype", "机械臂末端夹着花形图案，移向展台上的蓝色衣物。"],
     chapters: [
-      { title: "看得见的交互", intro: "衣物、图案和夹爪都在桌面上，观众可以直接看见机械臂的动作与落点。", plates: [
-        ["arm-demo", "展台演示", "团队在桌边介绍机械臂原型。"]
+      { title: "把原型带上舞台", intro: "从观众席望过去，舞台大屏把项目介绍展示给整个会场。", plates: [
+        ["arm-auditorium", "现场路演", "从观众席侧后方看舞台和投影大屏。"]
       ] },
       { title: "从展台到舞台", intro: "在香港 Physical AI Hackathon 现场，演讲和投影让台下观众也能跟上演示。", plates: [
-        ["arm-stage", "现场投影", "会场大屏呈现演示内容。"],
-        ["arm-pitch", "项目陈述", "团队成员在现场介绍项目。"]
+        ["arm-stage", "现场投影", "会场大屏呈现演示内容。"]
       ] },
       { title: "现场结果", intro: "作品获赛事最具创意奖。", plates: [
         ["arm-award", "颁奖现场", "大屏上的 Most Creative Award 与现场领奖合影。"]
@@ -126,12 +127,11 @@ const studioWorks = [
   },
   {
     id: 'drawnwork', name: '纱以生花', category: 'research', type: '分形数学 / 非遗工艺',
-    image: 'drawnwork-ip100-01', cover: 'edit-drawnwork', title: '用分形数学设计纹样，再把绣谱做成抽纱实物。',
+    image: 'drawnwork-ip100-01', cover: 'drawnwork-master-plate', title: '用分形数学设计纹样，再把绣谱做成抽纱实物。',
     description: '从潮汕抽纱中提取花心、边饰和重复单元，用分形规则推演数字绣谱，再把纹样转入实际制作。对照手巾与设计稿，能看到屏幕上的线条如何变成布面上的针脚与镂空。',
-    award: '获多项非遗类奖项，作品曾在广州图书馆展出。',
-    edition: '2025「岭南文化IP100」参赛版',
-    links: [['阅读分形纹样研究','https://doi.org/10.1145/3615522.3615558'],['阅读数字档案研究','https://doi.org/10.1145/3858626']],
-    lead: ["edit-drawnwork", "从单个花心到多层边饰，数字绣谱在黑白之间显出重复结构。"],
+    award: '作品获第十届广东省非物质文化遗产创意设计大赛优秀奖、未来设计师·全国高校数字艺术设计大赛广东赛区三等奖，入围 2025 年「岭南文化 IP100 计划」百件作品，入选 2025 中国—东盟（广西）数字设计艺术大展。作品曾在广州图书馆展出。',
+    links: [['分形纹样研究 · ACM','https://doi.org/10.1145/3615522.3615558'],['抽纱纹样生成 · 北大核心期刊','https://szys.cbpt.cnki.net/portal/journal/portal/client/paper/0c65f9ffd7c97957a8e038613c21951d']],
+    lead: ["drawnwork-master-plate", "完整数字绣谱。八瓣花心居中，四角的花叶与四边的边饰重复呼应。"],
     chapters: [
       { title: "用分形推演花样", intro: "先从潮汕抽纱中提取花心、边饰与重复单元，再改变重复次数和排列方向，推演出不同的绣谱。", plates: [
         ["drawnwork-ip100-01", "花形的起点", "单个花样从中心向外延伸。"],
@@ -150,7 +150,6 @@ const studioWorks = [
     id: 'diaozhuo', name: '碉琢', category: 'brand', type: '品牌与包装 / 地方文创',
     image: 'diaozhuo-ip100-03', cover: 'edit-diaozhuo', title: '把开平碉楼的轮廓，收进一组桌上器物。',
     description: '从碉楼的立面提取线条，缩小尺度，做成桌上陈列。灰绿色贯穿盆器、纸盒和手提袋，把器物与包装联系起来。',
-    edition: '2025「岭南文化IP100」参赛版',
     award: '第十八届中国之星设计奖 · 文创产品类铜奖',
     lead: ["edit-diaozhuo", "碉琢系列的盆器与包装组合。建筑轮廓贯穿器物与纸盒。"],
     chapters: [
@@ -171,8 +170,8 @@ const studioWorks = [
     id: 'shenwan', name: '神湾镇品牌设计', category: 'brand', type: '地方品牌 / 视觉识别',
     image: 'sw-identity', cover: 'index-shenwan', title: '用菠萝、丫髻山和西江构成神湾的品牌标志。',
     description: '从一枚标志出发，为中山神湾镇设计中英文字标、色彩和辅助图形。品牌里的菠萝纹、山形和水纹延伸到地方风景插画、明信片与茶具。',
-    award: '广东省博物馆代章的参展证明记载，《中山神湾镇系列文创设计》入选“助力乡村振兴在行动——首届乡村文化创意设计成果馆校联展”。展览已在韶关始兴、佛山南海区博物馆巡展。出具证明的是粤港澳大湾区（广东）文创联盟。',
-    lead: ["sw-identity", "参展版「中山 · 神湾」品牌标志，含中文与英文标准组合。"],
+    award: '作品入选首届乡村文化创意设计成果馆校联展，在广东省博物馆等单位联合主办的始兴围楼文化旅游周期间展出，随后巡展至佛山南海区博物馆。',
+    lead: ["shenwan-motion.gif", "「中山 · 神湾」动态标志与中英文字标。"],
     chapters: [
       { title: "标志从哪里来", intro: "丫髻山、神湾菠萝、西江与江心岛屿，在参展稿中被提炼成一组有层次的色块。", plates: [
         ["sw-origins", "四个地方线索", "参展稿里的丫髻山、菠萝、西江与岛屿。"]
@@ -208,7 +207,7 @@ const researchNotes = [
     type: '学术论文', name: '潮汕抽纱数字档案',
     credit: '入选 GCH 2026 · ACM JOCCH 视觉遗产专题',
     description: '将抽纱档案中的文字和图像关联到原始出处。研究者可以从一条记录回看原文或图像，判断两份材料之间的联系。',
-    links: [['阅读论文', 'https://doi.org/10.1145/3858626'], ['查看 GCH 会议议程', 'https://gch2026.virvig.eu/program/']]
+    links: [['阅读论文', 'https://doi.org/10.1145/3858626']]
   },
   {
     type: '田野观察', name: '街头 3D 打印',

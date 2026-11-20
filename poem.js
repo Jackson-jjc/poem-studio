@@ -21,7 +21,7 @@ if (directory) {
     brand: ['diaozhuo', portfolioImage('diaozhuo-cover'), '开平碉楼造型的盆器与纸盒'],
     digital: ['meyou', portfolioImage('site-meyou'), 'MeYou 跨境医美信息核验网站首页'],
     objects: ['graduate', portfolioImage('graduate-magnets'), '五款毕业冰箱贴与南安普顿大学校徽背卡'],
-    research: ['drawnwork', 'assets/cover/flower.webp', '潮汕抽纱的分形花样']
+    research: ['drawnwork', 'assets/portfolio/drawnwork-flower-detail.webp', '潮汕抽纱的分形花样']
   };
   directory.innerHTML = `<figure class="index-preview"><a class="index-plate" href=""><img alt=""></a><figcaption><strong></strong><a class="index-case-link" href="">查看案例 ↗</a></figcaption></figure>
     <div class="index-rows">${portfolioSections.map(section => {
