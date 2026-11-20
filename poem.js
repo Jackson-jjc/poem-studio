@@ -5,6 +5,22 @@ const projects = [
   { id: 'pulse', name: 'PULSE', category: 'app', type: 'App 设计 / DIGITAL PRODUCT', image: 'assets/poem-app.webp', title: '把喜欢的声音，带进日常。', description: '围绕音乐发现与收藏设计的移动端概念。用有温度的色彩和清晰的操作路径，连接探索、播放与保存。', scope: '用户流程、App UI、组件库、动态反馈', approach: '围绕发现、试听、收藏三个核心动作组织信息，让每一次点击都能自然进入下一步。', deliverable: '核心用户流程、界面原型和产品设计系统。' }
 ];
 const page = document.body.dataset.page;
+function floatObjects(selector, names) {
+  const host = document.querySelector(selector);
+  if (!host) return;
+  const group = document.createElement('span');
+  group.className = 'float-objects';
+  group.setAttribute('aria-hidden', 'true');
+  for (const name of names) {
+    const object = new Image();
+    object.alt = '';
+    object.decoding = 'async';
+    object.src = 'assets/decor-' + name + '.webp';
+    group.append(object);
+  }
+  host.classList.add('has-float-objects');
+  host.append(group);
+}
 if (page === 'home') {
   import('./hero-showcase.js?v=12').then(({mountShowcase}) => mountShowcase());
 }
@@ -70,6 +86,30 @@ if (document.querySelector('#case-content')) {
 if (project.id === 'luma') content.insertAdjacentHTML('beforeend', `<section class="luma-system"><div class="luma-identity"><span class="eyebrow">THE VISUAL LANGUAGE</span><strong>LUMA<br>HEALTH<span class="luma-dot"></span></strong><p>钴蓝、圆弧与清晰的网格，连接品牌与每个触点。</p><div class="palette"><i></i><i></i><i></i></div></div><div class="luma-notes"><h2>一套规则，<br>两种阅读距离。</h2><p>包装：先识别品牌，再读取产品类别与信息。</p><p>网页：先理解品牌方向，再进入产品与内容。</p><p>相同的字体、色彩与圆弧图形，让线下与线上彼此呼应。</p></div></section><div class="case-gallery"><figure><img src="assets/poem-health.webp" alt="LUMA 包装体系细节"><figcaption>PACKAGING / 包装与材质</figcaption></figure><figure><img src="assets/poem-health.webp" alt="LUMA 官网视觉细节"><figcaption>WEB EXPERIENCE / 官网视觉</figcaption></figure></div>`);  } else content.innerHTML = '<div class="empty"><h1>这个项目还未收录。</h1><a class="text-link" href="works.html">浏览全部项目</a></div>';
 }
 const brief = document.querySelector('.brief');
+if (document.querySelector('.project-story')) {
+  const id = new URLSearchParams(location.search).get('id');
+  const objects = {
+    'time-tools': ['cassette', 'silver-star'],
+    graduate: ['bow', 'star', 'silver-star'],
+    yuexiu: ['plush-heart', 'bow'],
+    meyou: ['flip-phone', 'silver-star'],
+    drawnwork: ['bow', 'silver-star'],
+    'robot-arm': ['headphones', 'star'],
+    'name-bridge': ['bunny', 'silver-star'],
+    diaozhuo: ['cloud', 'silver-star'],
+    shenwan: ['cloud', 'star', 'silver-star']
+  };
+  if (objects[id]) floatObjects('.story-heading', objects[id]);
+} else {
+  const accents = {
+    home: ['.open-research header', ['cassette', 'silver-star']],
+    works: ['.page-title', ['headphones', 'star', 'silver-star']],
+    about: ['.page-title', ['plush-heart', 'silver-star']],
+    services: ['.page-title', ['cassette', 'silver-star', 'star']],
+    contact: ['.page-title', ['flip-phone', 'cloud']]
+  };
+  if (accents[page]) floatObjects(...accents[page]);
+}
 if (page === 'services') {
   const openService = () => {
     const section = document.getElementById(location.hash.slice(1));

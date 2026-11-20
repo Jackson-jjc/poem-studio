@@ -47,3 +47,49 @@ body{font-family:var(--text)}nav,.header-link,.button,.text-link,.filters button
 /* Chinese is primary; English provides a secondary visual rhythm. */
 .slide-copy h2{font-family:var(--text);font-weight:800;font-size:clamp(32px,4.7cqw,66px);line-height:1.15;letter-spacing:-.055em;max-width:360px}.slide-copy .eyebrow{font-family:var(--text);font-size:13px}.statement h2{font-family:var(--text);font-size:6.2cqw;line-height:1.2;font-weight:800;letter-spacing:-.055em}.statement>.eyebrow{margin-bottom:20px;color:#555}.manifesto-art strong{font-family:var(--text);font-size:6.5cqw;line-height:1.1;font-weight:800;letter-spacing:-.05em}.digital-head h2{font-family:var(--text);font-size:6.5cqw;line-height:1.05;font-weight:800}.feature-heading h2{font-family:var(--text);font-size:4.2cqw;line-height:1.15;font-weight:800}.page-title{font-family:var(--text);font-weight:800;line-height:1.15;font-size:7.6cqw;letter-spacing:-.05em}.section-heading h2{font-family:var(--text);font-weight:800;letter-spacing:-.04em}.closing h2{font-family:var(--text);font-weight:800;line-height:1.2;letter-spacing:-.04em}.service-shape h3{font-family:var(--text);font-weight:800}.service-shape small{display:block;font:11px var(--mono);margin-top:12px;letter-spacing:0}.duotone-art span{font-family:var(--text)}
 @media(max-width:600px){.slide-copy h2{font-size:10cqw;max-width:90%;line-height:1.1;margin:19px 0 14px}.slide-copy .eyebrow{font-size:11px}.statement h2{font-size:8.6cqw;line-height:1.25}.manifesto-art strong{font-size:13cqw}.digital-head h2{font-size:13cqw}.feature-heading h2{font-size:10cqw}.page-title{font-size:11cqw}.service-shape small{font-size:11px}}
+
+/* A separate strip in the heading keeps the small objects clear of the type. */
+.has-float-objects {
+  --object-space: clamp(74px, 16cqw, 220px);
+  position: relative;
+  min-height: calc(var(--object-space) * .53);
+  padding-inline-end: calc(var(--object-space) + .25rem);
+}
+.float-objects {
+  position: absolute;
+  inset-inline-end: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--object-space);
+  aspect-ratio: 2 / 1;
+  pointer-events: none;
+  user-select: none;
+}
+.float-objects img {
+  position: absolute;
+  object-fit: contain;
+  width: 49%;
+  height: 96%;
+  inset: 0 auto auto 17%;
+  --lift: -5px;
+  animation: studio-object-float 6s ease-in-out -1.4s infinite alternate;
+}
+.float-objects img:nth-child(2) {
+  width: 23%; height: 46%; inset: 3% 3% auto auto;
+  --lift: 3px;
+  animation-duration: 4.7s;
+  animation-delay: -3.1s;
+}
+.float-objects img:nth-child(3) {
+  width: 12%; height: 24%; inset: auto auto 6% 6%;
+  --lift: -3px;
+  animation-duration: 5.4s;
+}
+.open-research .has-float-objects { --object-space: clamp(76px, 11cqw, 150px); }
+@keyframes studio-object-float {
+  from { transform: translateY(0); }
+  to { transform: translateY(var(--lift)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-objects img { animation: none; }
+}
