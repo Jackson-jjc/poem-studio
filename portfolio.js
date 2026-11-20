@@ -47,23 +47,23 @@ const studioWorks = [
   {
     id: 'time-tools', name: 'DeTime × EchoTime', category: 'web', type: '科研工具 / WEB UI',
     image: 'edit-time', cover: 'index-time', label: '拆解与比较时间曲线',
-    title: '给研究者看数据的两套网页。', note: 'DeTime 看一组数据怎样变化，EchoTime 比较两组数据哪里相似。',
-    description: '团队为两款开源科研工具设计了网页界面。打开 DeTime，可以看一组数据的长期走势和反复出现的波动。打开 EchoTime，可以把两组记录放在一起，找出变化相似的时段。',
+    title: '看懂数据怎样随时间变化。', note: 'DeTime 看一组记录的走势，EchoTime 比较两组记录的异同。',
+    description: '团队为 DeTime 和 EchoTime 两款开源科研工具设计了网页界面。在 DeTime 的结果页，我们把原始记录和拆开后的曲线上下对齐，方便按日期对照。在 EchoTime 的示例页，读者可以先看两条曲线，再打开详细报告。',
     award: '项目仓库 · DeTime 54 Stars / EchoTime 22 Stars（2026.11.20）',
     links: [['访问 DeTime','https://systems-mechanobiology.github.io/DeTime/'],['访问 EchoTime','https://zipengwu.me/EchoTime/'],['DeTime 仓库','https://github.com/systems-mechanobiology/DeTime'],['EchoTime 仓库','https://github.com/ZipengWu365/EchoTime']], theme: 'offgrid',
     lead: ["index-time", "两款独立科研工具的网页首页。上方是 DeTime，下方是 EchoTime。"],
     chapters: [
-      { title: "DeTime · 用电量真的涨了吗？", intro: [
-        "假设家里这个月有几天特别费电。把每天的用电量画出来，周末在家的高峰和整个月的变化会叠在一起。DeTime 可以把这条线拆开看：平时的用电量有没有慢慢升高？高峰是不是每隔七天就出现一次？",
-        "想用自己的记录试一遍，可以跟着入门教程，把按日期排好的一列用电量交给 DeTime，并把周期设为七天。我们在网页里把原始曲线和分解结果上下对齐。先看长期走势，再对照每周的起伏，剩下特别突出的那一天，就值得翻回电表记录细看。"
+      { title: "DeTime · 这一周真的在变热吗？", intro: [
+        "假如你每小时记一次气温，画出来的线每天都会起起落落：白天暖，夜里凉。要看这一周是不是一天比一天热，这些起伏反而容易挡住整体的变化。DeTime 能把两者分开。",
+        "跟着入门教程，把每小时的气温按时间排好，以 24 小时为一个周期运行分析。结果里有一条线画出这几天的整体走势，另一条线画出每天反复出现的升温和降温。如果第一条线持续往上走，即使夜里仍然降温，也能看出这几天总体在变暖。"
       ], guide: ["看 DeTime 入门示例", "https://systems-mechanobiology.github.io/DeTime/quickstart/"], plates: [
         ["site-de", "官网首页", "从项目说明进入安装、示例与方法文档。"],
         ["time-de-panel", "分解面板", "原始记录在上方，下方分别显示长期走势、周期波动和剩余变化。"],
         ["site-de-tool", "方法对照表", "用一张表比较不同的分析方法。"]
       ] },
       { title: "EchoTime · 两座城市是同时热起来的吗？", intro: [
-        "凤凰城和拉斯维加斯的夏天都很热。只看平均气温，很难知道一次热浪中，两地是不是在同几天升温，又是不是一起降温。EchoTime 比较两组随时间变化的记录，可以看出它们在哪些时段走势接近，又从哪里开始分开。",
-        "打开两座城市的气温示例就能试读。先在图上找一座城市的高温峰值，再沿同一日期看另一条线；两地都在升温，升温的幅度也可能不同。我们把曲线预览和报告入口放在一起，读者可以从图上发现的那段差异，继续查看具体的比较结果。"
+        "想知道一次热浪怎样影响两座城市，可以把两地每天的最高气温放在一起看。即使两地都到过 38°C，也可能是一地已经开始降温，另一地才刚刚热起来。EchoTime 帮你比较的，就是这两段升温和降温的过程。",
+        "打开凤凰城和拉斯维加斯的气温示例，图上每条线代表一座城市。先找到凤凰城最热的那天，再找拉斯维加斯的最高点。两个峰顶之间隔了几天，两地最热的日子就差了几天。想知道其他日期的变化有多相似，可以接着看图下的比较报告。"
       ], guide: ["看两座城市的气温对照", "https://zipengwu.me/EchoTime/blog/heatwave_vs_grid_load.html"], plates: [
         ["site-echo", "官网首页", "文档、教程与 Playground 各有入口。"],
         ["time-echo-panel", "区间对照", "在滚动时间轴上对照两条曲线。"],
