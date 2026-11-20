@@ -5,7 +5,7 @@ const projects = [
   { id: 'pulse', name: 'PULSE', category: 'app', type: 'App 设计 / DIGITAL PRODUCT', image: 'assets/poem-app.webp', title: '把喜欢的声音，带进日常。', description: '围绕音乐发现与收藏设计的移动端概念。用有温度的色彩和清晰的操作路径，连接探索、播放与保存。', scope: '用户流程、App UI、组件库、动态反馈', approach: '围绕发现、试听、收藏三个核心动作组织信息，让每一次点击都能自然进入下一步。', deliverable: '核心用户流程、界面原型和产品设计系统。' }
 ];
 const page = document.body.dataset.page;
-function floatObjects(selector, names) {
+function floatObjects(selector, names, placement = 'heading') {
   const host = document.querySelector(selector);
   if (!host) return;
   const group = document.createElement('span');
@@ -18,8 +18,16 @@ function floatObjects(selector, names) {
     object.src = 'assets/decor-' + name + '.webp';
     group.append(object);
   }
-  host.classList.add('has-float-objects');
-  host.append(group);
+  if (placement === 'heading') {
+    host.classList.add('has-float-objects');
+    host.append(group);
+  } else {
+    const strip = document.createElement('div');
+    strip.className = 'object-interlude interlude-' + placement;
+    strip.setAttribute('aria-hidden', 'true');
+    strip.append(group);
+    host.after(strip);
+  }
 }
 if (page === 'home') {
   import('./hero-showcase.js?v=12').then(({mountShowcase}) => mountShowcase());
@@ -99,7 +107,11 @@ if (document.querySelector('.project-story')) {
     diaozhuo: ['cloud', 'silver-star'],
     shenwan: ['cloud', 'star', 'silver-star']
   };
-  if (objects[id]) floatObjects('.story-heading', objects[id]);
+  if (objects[id]) {
+    floatObjects('.story-heading', objects[id]);
+    floatObjects('#chapter-1', [objects[id][1]], 'left');
+    floatObjects('.chapter-nav ~ .story-chapter:last-of-type', [objects[id][0], 'silver-star'], 'right');
+  }
 } else {
   const accents = {
     home: ['.open-research header', ['cassette', 'silver-star']],
@@ -109,6 +121,14 @@ if (document.querySelector('.project-story')) {
     contact: ['.page-title', ['flip-phone', 'cloud']]
   };
   if (accents[page]) floatObjects(...accents[page]);
+  if (page === 'home') floatObjects('.home-directory', ['cloud', 'star', 'silver-star'], 'left');
+  if (page === 'works') {
+    floatObjects('.catalogue-section:first-child', ['cloud'], 'left');
+    floatObjects('.catalogue-section:nth-child(3)', ['cassette', 'star', 'silver-star'], 'right');
+  }
+  if (page === 'about') floatObjects('.team-spread', ['bow', 'silver-star'], 'left');
+  if (page === 'services') floatObjects('.service-list', ['flip-phone', 'star'], 'right');
+  if (page === 'contact') floatObjects('.contact-layout .help', ['headphones', 'silver-star'], 'left');
 }
 if (page === 'services') {
   const openService = () => {

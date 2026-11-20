@@ -49,10 +49,11 @@
 }
 .object-field {position: relative; height: clamp(275px,34cqw,530px); margin: 0 1.8% 1.2%}
 .poster-ornaments {position:absolute;inset:0;pointer-events:none}
-.poster-ornaments img {position:absolute;height:auto;filter:drop-shadow(1px 3px 2px #28242130);animation:float-plate 5s ease-in-out infinite alternate}
+.poster-ornaments img {position:absolute;height:auto;filter:drop-shadow(1px 3px 2px #28242130);animation:poster-float 3s ease-in-out infinite alternate}
 .chrome-star {width:5.3%;left:73%;top:10%;rotate:-12deg}
-.poster-ornaments .pink-spark {width:2%;left:79%;top:11%;rotate:13deg;animation-delay:-2s}
-.poster-ornaments .small-star {width:2.7%;left:20%;top:83%;rotate:17deg;animation-delay:-3s}
+.poster-ornaments .pink-spark {width:2%;left:79%;top:11%;rotate:13deg;--travel:5px;animation-duration:2.2s;animation-delay:-2s}
+.poster-ornaments .small-star {width:2.7%;left:20%;top:83%;rotate:17deg;--travel:7px;animation-duration:3.4s;animation-delay:-3s}
+@keyframes poster-float {from{translate:0 var(--travel,10px)}to{translate:0 calc(-1 * var(--travel,10px))}}
 .specimen {
   display: block;
   border: 0; background: none; padding: 0;

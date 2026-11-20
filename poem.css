@@ -50,9 +50,9 @@ body{font-family:var(--text)}nav,.header-link,.button,.text-link,.filters button
 
 /* A separate strip in the heading keeps the small objects clear of the type. */
 .has-float-objects {
-  --object-space: clamp(74px, 16cqw, 220px);
+  --object-space: clamp(92px, 17cqw, 236px);
   position: relative;
-  min-height: calc(var(--object-space) * .53);
+  min-height: calc(var(--object-space) * .60);
   padding-inline-end: calc(var(--object-space) + .25rem);
 }
 .float-objects {
@@ -68,27 +68,43 @@ body{font-family:var(--text)}nav,.header-link,.button,.text-link,.filters button
 .float-objects img {
   position: absolute;
   object-fit: contain;
-  width: 49%;
+  width: 56%;
   height: 96%;
   inset: 0 auto auto 17%;
-  --lift: -5px;
-  animation: studio-object-float 6s ease-in-out -1.4s infinite alternate;
+  --lift: clamp(7px, 1cqw, 13px);
+  animation: studio-object-float 2.9s ease-in-out -1.4s infinite alternate;
 }
 .float-objects img:nth-child(2) {
   width: 23%; height: 46%; inset: 3% 3% auto auto;
-  --lift: 3px;
-  animation-duration: 4.7s;
+  --lift: clamp(5px, .7cqw, 9px);
+  animation-duration: 2.2s;
   animation-delay: -3.1s;
 }
 .float-objects img:nth-child(3) {
   width: 12%; height: 24%; inset: auto auto 6% 6%;
-  --lift: -3px;
-  animation-duration: 5.4s;
+  --lift: clamp(4px, .5cqw, 7px);
+  animation-duration: 3.6s;
+  animation-delay: -2.5s;
 }
 .open-research .has-float-objects { --object-space: clamp(76px, 11cqw, 150px); }
+.object-interlude {
+  display: grid;
+  align-items: center;
+  padding-block: .75rem;
+  pointer-events: none;
+}
+.object-interlude .float-objects {
+  position: relative;
+  inset: auto;
+  transform: none;
+  width: clamp(84px, 13cqw, 164px);
+}
+.interlude-left { padding-inline-start: 8%; }
+.interlude-right { justify-items: end; padding-inline-end: 15%; }
+.object-interlude:has(img:only-child) .float-objects { width: clamp(54px, 7cqw, 84px); }
 @keyframes studio-object-float {
-  from { transform: translateY(0); }
-  to { transform: translateY(var(--lift)); }
+  from { transform: translateY(var(--lift)); }
+  to { transform: translateY(calc(-1 * var(--lift))); }
 }
 @media (prefers-reduced-motion: reduce) {
   .float-objects img { animation: none; }
